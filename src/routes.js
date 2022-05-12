@@ -10,7 +10,7 @@ const router = Router()
 
 router.post('/login', Auth.authenticate)
 
-router.post('/user/new', User.new)
+router.post('/register', User.new)
 
 router.get('/item', authMiddleware, Item.index)
 router.post('/item/new', authMiddleware, Item.new)
