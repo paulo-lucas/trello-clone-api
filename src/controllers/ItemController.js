@@ -2,10 +2,11 @@ const Item = require('../models/Item')
 const User = require('../models/User')
 
 module.exports.index = async (req, res) => {
-  const user = await User.findOne({ id: req.userId })
+  const user = await User.findOne({ _id: req.userId })
   let items = await Item.find()
 
-  items = items.filter(item => item.user._id == user._id)
+
+  items = items.filter(item => item.user == user.id)
 
   return res.status(200).json({ items })
 }
@@ -13,7 +14,7 @@ module.exports.index = async (req, res) => {
 module.exports.new = async (req, res) => {
   try {
     const { content } = req.body
-    const user = await User.findOne({ id: req.userId })
+    const user = await User.findOne({ _id: req.userId })
     const item = await Item.create({ content, user })
 
     return res.status(200).json({ item })
@@ -34,7 +35,7 @@ module.exports.move = async (req, res) => {
   if (!item)
     return res.status(400).json({ message: 'Item não encontrado' })
 
-  const user = await User.findOne({ id: req.userId })
+  const user = await User.findOne({ _id: req.userId })
 
   if (user.id != item.user)
     return res.status(400).json({ message: 'Usuário não tem permissão para mover esse item' })
@@ -58,7 +59,7 @@ module.exports.delete = async (req, res) => {
   if (!item)
     return res.status(400).json({ message: 'Item não encontrado' })
 
-  const user = await User.findOne({ id: req.userId })
+  const user = await User.findOne({ _id: req.userId })
 
   if (user.id != item.user)
     return res.status(400).json({ message: 'Usuário não tem permissão para remover esse item' })
