@@ -1,10 +1,11 @@
-const { send } = require('express/lib/response')
 const Item = require('../models/Item')
 const User = require('../models/User')
 
 module.exports.index = async (req, res) => {
   const user = await User.findOne({ id: req.userId })
-  const items = await Item.find({ user })
+  let items = await Item.find()
+
+  items = items.filter(item => item.user._id == user._id)
 
   return res.status(200).json({ items })
 }
@@ -69,8 +70,4 @@ module.exports.delete = async (req, res) => {
     console.log(err)
     return res.status(400).json({ message: 'Erro ao remover item' })
   }
-}
-
-module.exports.teste = async (req, res) => {
-  return res.send(req.body)
 }
