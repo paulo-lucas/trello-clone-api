@@ -29,8 +29,6 @@ module.exports.move = async (req, res) => {
     return res.status(400).json({ message: 'Status não informado' })
 
   const item = await Item.findOne({ _id: id })
-  console.log(item)
-  console.log(id)
 
   if (!item)
     return res.status(400).json({ message: 'Item não encontrado' })
