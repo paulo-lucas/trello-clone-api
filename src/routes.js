@@ -14,7 +14,7 @@ router.post('/user/new', User.new)
 
 router.get('/item', authMiddleware, Item.index)
 router.post('/item/new', authMiddleware, Item.new)
-router.patch('/item/:id', authMiddleware, Item.move)
+router.put('/item/:id', authMiddleware, Item.move)
 router.delete('/item/:id', authMiddleware, Item.delete)
 
 router.patch('/teste', (req, res) => res.send(req.body))
