@@ -1,1 +1,1 @@
-module.exports.hash = "077b3c44f214c597326f4323e8460a28"
+module.exports.hash = process.env.SECRET_HASH
